@@ -1,9 +1,9 @@
 const test = require('tape')
 
-const type = require('../')
+const ty = require('../')
 
-test('simple-type', function(t) {
-  t.ok(type, 'module is require-able')
+test('mintype', function(t) {
+  t.ok(ty, 'module is require-able')
   t.end()
 })
 
@@ -17,7 +17,7 @@ test('numbers', function(t) {
   ]
   numbers.forEach((number) => {
     t.ok(
-      type.Number.is(number),
+      ty.Number.is(number),
       `${number} is a number`
     )
   })
@@ -28,7 +28,7 @@ test('numbers', function(t) {
   ]
   notNumbers.forEach((notNumber) => {
     t.notOk(
-      type.Number.is(notNumber),
+      ty.Number.is(notNumber),
       `${notNumber} is not a number`
     )
   })

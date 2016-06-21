@@ -1,11 +1,11 @@
-# simple-type
+# mintype
 
 simple type abstraction
 
 **not useful yet, come back another time**
 
 ```shell
-npm install --save simple-type
+npm install --save mintype
 ```
 
 ## what?
@@ -28,32 +28,20 @@ give a `value`, returns either
 
 we can use this in many interesting ways
 
-- create a factory `Function` that is _idempotent_, as in F(value) === F(F(value))`
+- create a factory `Function` that is _idempotent_, as in `F(value) === F(F(value))`
   - this can throw errors in development, but avoid expensive checks in production
 - create a validation `Function` that returns `Array` of `Error` about `value` being type `T`
 - create a test `Function` that returns `Boolean` of whether `value` is type `T`
 
 ## usage
 
-### `st = require('simple-type')`
+### `ty = require('mintype')`
 
-### built-in types
+the top-level `mintype` module is a grab bag of all `mintype/*` modules.
 
-- `st.String`: strings
-- `st.Number`: numbers
-- `st.Integer`: integers
-- `st.Boolean`: booleans
-- `st.Array`: arrays
-- `st.Object`: plain objects
-- `st.Function`: functions
-- `st.Error`: errors
-- `st.RegExp`: regular expressions
-- `st.Date`: dates
-- `st.Nil`: `null` or `undefined`
-- `st.Any`: any value
-- `st.Type`: a `tcomb` type
+you can also require each module separately like `require('mintype/push')`.
 
-### `F = st.create(Type)
+### `F = ty.create(Type)`
 
 given a type definition, return a typed factory (which is also compatible as a definition).
 
@@ -62,16 +50,38 @@ given a type definition, return a typed factory (which is also compatible as a d
 - if there are errors from applying the rules, then `F` will throw
 - otherwise `F` returns the result of applying the rules
 
+if `process.env.NODE_ENV === 'production'`, then `F` ignores any errors
+
 `F` has the `type` and `rules` keys from `Type`, plus:
 
-- `type`: `String` name for the type
-- `rules`: `Array` of rules
+- `F.is(value)`: returns `Boolean` of whether `value` is type `T`
+- `F.validate(value)`: that returns `Array` of `Error` about `value` being type `T`
 
-### `st.validate(type, value)`
+### built-in types
+
+- `ty.String`: strings
+- `ty.Number`: numbers
+- `ty.Integer`: integers
+- `ty.Boolean`: booleans
+- `ty.Array`: arrays
+- `ty.Object`: plain objects
+- `ty.Function`: functions
+- `ty.Error`: errors
+- `ty.RegExp`: regular expressions
+- `ty.Date`: dates
+- `ty.Nil`: `null` or `undefined`
+- `ty.Any`: any value
+- `ty.Type`: a `tcomb` type
+
+### `ty.validate(type, value)`
 
 reduce rules over value.
 
 return errors as an array (empty if none)
+
+### `ty.isType(type, value)`
+
+### `ty.assert(type, value)`
 
 ## inspiration
 

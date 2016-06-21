@@ -1,7 +1,7 @@
 {
-  "name": "simple-type",
+  "name": "mintype",
   "version": "0.0.0",
-  "description": "simple type abstraction",
+  "description": "minimal type abstraction",
   "main": "index.js",
   "scripts": {
     "test": "tape test/*.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahdinosaur/simple-type.git"
+    "url": "git+https://github.com/ahdinosaur/mintype.git"
   },
   "keywords": [],
   "author": "Mikey <michael.williams@enspiral.com> (http://dinosaur.is)",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ahdinosaur/simple-type/issues"
+    "url": "https://github.com/ahdinosaur/mintype/issues"
   },
-  "homepage": "https://github.com/ahdinosaur/simple-type#readme",
+  "homepage": "https://github.com/ahdinosaur/mintype#readme",
   "devDependencies": {
     "npm-run-all": "^1.6.0",
     "tape": "^4.5.1"
