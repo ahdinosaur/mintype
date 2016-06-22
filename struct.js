@@ -1,31 +1,27 @@
 module.exports = createStruct
 
 function createStruct (name, propTypes) {
-  return function create (props) {
+  Struct.prototype = Object.create(create.prototype)
+
+  return create
+
+  function create (props) {
     if (props instanceof Struct) {
       return props
     }
 
-    const [value, errors] = Object.keys(props)
-      .map((sofar, propName) => {
-        const prop = props[propName]
-        const propType = propTypes[propName]
-        const propValue = propType(prop)
+    var value = {}
 
-        if (Array.isArray(propValue)) {
-          return [value, errors.concat(propValue)]
-        }
+    for (var propName in propTypes) {
+      const prop = props[propName]
+      const propType = propTypes[propName]
+      const propValue = propType(prop)
 
-        return [
-          Object.assign(sofar, {
-            [propName]: propValue
-          }),
-          errors
-        ]
-      })
+      if (propValue instanceof Error) {
+        return propValue
+      }
 
-    if (errors) {
-      return errors
+      value[propName] = propValue
     }
 
     return new Struct(value)
@@ -34,11 +30,11 @@ function createStruct (name, propTypes) {
   function Struct (props) {
     this.type = name
 
-    for (var key in props) {
-      const prop = props[key]
-      const propType = propTypes[key]
+    for (var propName in props) {
+      const prop = props[propName]
+      const propType = propTypes[propName]
 
-      this[name] = propType(prop)
+      this[propName] = propType(prop)
     }
   }
 }

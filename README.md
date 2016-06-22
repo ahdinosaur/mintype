@@ -14,15 +14,17 @@ what's a type?
 
 **a Type `T` is a function** where
 
-give a value `v`, returns either
+given a value `v`, `T` returns either:
 
-- a new value `v*`
+- a new value `v*` (which might be `===` to `v`)
 - an instance of `Error`
+
+and given `v*`, `T` returns `v*`.
 
 we can use this in many interesting ways
 
 - create a factory `Function` that is _idempotent_, as in `F(value) === F(F(value))`
-  - this can throw errors in development, but avoid expensive checks in production
+  - to do this, we throw errors in development, and ignore them in production.
 - create a validation `Function` that returns `Error` or `null` about `value` being type `T`
 - create a test `Function` that returns `Boolean` of whether `value` is type `T`
 
@@ -71,9 +73,9 @@ else return `false`.
 
 ### how to optimize types in production?
 
-for more performant types in production, only check for errors if `process.env.NODE_ENV !== 'production'`.
+for more performant types in production, only do expensive error-checking if `process.env.NODE_ENV !== 'production'`.
 
-this allows the code to be stripped out with `browserify` bundles using `envify` and `uglifyify`.
+this allows the code to be stripped out with [`browserify`](http://browserify.org/) bundles using [`envify`](https://github.com/hughsk/envify) and [`uglifyify`](https://github.com/hughsk/uglifyify).
 
 the built-in types and type utilities do this already, but if you are supplying your own types from scratch you will need to do this on your own.
 
