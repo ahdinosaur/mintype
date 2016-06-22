@@ -33,6 +33,41 @@ we can use this in many interesting ways
 - create a test `Function` that returns `Boolean`
 - compose many types together into one type
 
+## example
+
+```js
+const ty = require('mintype')
+
+const Vector = ty.compose(
+  ty.Array,
+  (vector) => {
+    const error = vector.reduce((sofar, next) => {
+      return sofar instanceof TypeError
+        ? sofar : ty.validate(ty.Number, next)
+    }, null)
+    return error === null ? vector : error
+  },
+  (vector) => vector.length === 2
+    ? vector : new TypeError('Vector must be array of [x, y].')
+)
+
+const Location = ty.struct('Location', {
+  position: Vector,
+  velocity: Vector
+})
+
+const location = ty.create(Location, {
+  position: [100, 0],
+  velocity: [0, 1]
+})
+
+console.log('location', location)
+// location Struct {
+//   type: 'Location',
+//   position: [ 100, 0 ],
+//   velocity: [ 0, 1 ] }
+```
+
 ## usage
 
 ### `ty = require('mintype')`

@@ -1,12 +1,12 @@
 module.exports = createStruct
 
 function createStruct (name, propTypes) {
-  Struct.prototype = Object.create(create.prototype)
+  cStruct.prototype = Object.create(Struct.prototype)
 
-  return create
+  return Struct
 
-  function create (props) {
-    if (props instanceof Struct) {
+  function Struct (props) {
+    if (props instanceof cStruct) {
       return props
     }
 
@@ -24,10 +24,10 @@ function createStruct (name, propTypes) {
       value[propName] = propValue
     }
 
-    return new Struct(value)
+    return new cStruct(value)
   }
 
-  function Struct (props) {
+  function cStruct (props) {
     this.type = name
 
     for (var propName in props) {
