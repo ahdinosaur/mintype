@@ -27,7 +27,7 @@ test('typeof', function (t) {
     ],
     Object: [
       {},
-      new Object,
+      { },
       Object.create(null),
       null,
       [],
@@ -36,8 +36,9 @@ test('typeof', function (t) {
     ],
     Function: [
       function () {},
-      () => {},
-      new Function(),
+      () => {
+      },
+      new Function() // eslint-disable-line no-new-func
     ]
   }
 
@@ -88,7 +89,7 @@ test('others', function (t) {
     ],
     Array: [
       [],
-      new Array()
+      new Array(10)
     ],
     Nil: [
       null,
@@ -103,11 +104,11 @@ test('others', function (t) {
 
 function testTypes (t, values) {
   Object.keys(values)
-  .filter(name => name !== 'none')
-  .forEach(typeName => {
-    testOfType(t, values, typeName)
-    testNotOfType(t, values, typeName)
-  })
+    .filter(name => name !== 'none')
+    .forEach(typeName => {
+      testOfType(t, values, typeName)
+      testNotOfType(t, values, typeName)
+    })
 }
 
 function testOfType (t, values, typeName) {
@@ -123,10 +124,10 @@ function testOfType (t, values, typeName) {
 
 function testNotOfType (t, values, typeName) {
   const valuesNotOfType = Object.keys(values)
-  .filter(name => name !== typeName)
-  .reduce((sofar, nextTypeName) => {
-    return sofar.concat(values[nextTypeName])
-  }, values.none)
+    .filter(name => name !== typeName)
+    .reduce((sofar, nextTypeName) => {
+      return sofar.concat(values[nextTypeName])
+    }, values.none)
 
   valuesNotOfType.forEach((value) => {
     t.notOk(

@@ -7,22 +7,22 @@ function createStruct (name, propTypes) {
     }
 
     const [value, errors] = Object.keys(props)
-    .map((sofar, propName) => {
-      const prop = props[propName]
-      const propType = propTypes[type]
-      const propValue = propType(prop)
+      .map((sofar, propName) => {
+        const prop = props[propName]
+        const propType = propTypes[propName]
+        const propValue = propType(prop)
 
-      if (Array.isArray(propValue)) {
-        return [value, errors.concat(propValue)]
-      }
+        if (Array.isArray(propValue)) {
+          return [value, errors.concat(propValue)]
+        }
 
-      return [
-        Object.assign(sofar, {
-          [propName]: propValue
-        }),
-        errors
-      ]
-    })
+        return [
+          Object.assign(sofar, {
+            [propName]: propValue
+          }),
+          errors
+        ]
+      })
 
     if (errors) {
       return errors
