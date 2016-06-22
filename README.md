@@ -2,7 +2,7 @@
 [![npm version][2]][3] [![build status][4]][5] [![test coverage][6]][7]
 [![downloads][8]][9] [![js-standard-style][10]][11]
 
-minimal type abstraction
+minimal composable type abstraction
 
 ```shell
 npm install --save mintype
@@ -31,6 +31,7 @@ we can use this in many interesting ways
   - to do this, we throw errors in development, and ignore them in production.
 - create a validation `Function` that returns `TypeError` or `null`
 - create a test `Function` that returns `Boolean`
+- compose many types together into one type
 
 ## usage
 
@@ -87,6 +88,19 @@ calling `Type(props)` either returns:
 - a `new` instance of the struct's evaluated props called on the constructor function.
 
 note: it's possible to define methods on `Type.prototype`, which will show up as methods on any returned instances.
+
+### `ty.compose(...Types)`
+
+compose many types into one type, as so:
+
+```js
+const Integer = compose(
+  ty.Number,
+  (value) => value % 1 === 0
+    ? value
+    : new TypeError(`expected ${value} % 1 === 0`)
+)
+```
 
 ## FAQ
 

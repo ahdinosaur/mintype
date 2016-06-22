@@ -1,10 +1,10 @@
 module.exports = Object.assign(
   {
+    create: require('./create'),
     validate: require('./validate'),
     is: require('./is'),
-    create: require('./create'),
-    compose: require('./compose'),
-    struct: require('./struct')
+    struct: require('./struct'),
+    compose: require('./compose')
   },
   require('./types')
 )
