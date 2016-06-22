@@ -69,6 +69,21 @@ else return `false`.
 - `ty.Nil`: `null` or `undefined`
 - `ty.Any`: any value
 
+### `ty.struct(name, propTypes)`
+
+given a `String` (or `Symbol`) name
+
+and an `Object` of property types corresponding to property names,
+
+returns a `Type` that uses a constructor function for efficient data structures.
+
+calling `Type(props)` either returns:
+
+- the first error encountered in evaluating the props
+- a `new` instance of the struct's evaluated props called on the constructor function.
+
+note: it's possible to define methods on `Type.prototype`, which will show up as methods on any returned instances.
+
 ## FAQ
 
 ### how to optimize types in production?
