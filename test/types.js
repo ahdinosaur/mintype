@@ -5,7 +5,7 @@ const { stringify } = require('../util')
 
 test('typeof', function (t) {
   const values = {
-    none: [
+    Any: [
       undefined
     ],
     String: [
@@ -49,7 +49,7 @@ test('typeof', function (t) {
 
 test('instanceof', function (t) {
   const values = {
-    none: [
+    Any: [
       'a',
       0,
       null,
@@ -75,7 +75,7 @@ test('instanceof', function (t) {
 
 test('others', function (t) {
   const values = {
-    none: [
+    Any: [
       'a',
       0.1,
       {},
@@ -104,9 +104,9 @@ test('others', function (t) {
 
 function testTypes (t, values) {
   Object.keys(values)
-    .filter(name => name !== 'none')
     .forEach(typeName => {
       testOfType(t, values, typeName)
+      if (typeName === 'Any') return
       testNotOfType(t, values, typeName)
     })
 }
@@ -127,7 +127,7 @@ function testNotOfType (t, values, typeName) {
     .filter(name => name !== typeName)
     .reduce((sofar, nextTypeName) => {
       return sofar.concat(values[nextTypeName])
-    }, values.none)
+    }, values.Any)
 
   valuesNotOfType.forEach((value) => {
     t.notOk(
