@@ -42,7 +42,7 @@ test('typeof', function (t) {
     ]
   }
 
-  testTypes(t, values)
+  testTypes(t, values, { identity: true })
 
   t.end()
 })
@@ -68,7 +68,7 @@ test('instanceof', function (t) {
     ]
   }
 
-  testTypes(t, values)
+  testTypes(t, values, { identity: true })
 
   t.end()
 })
@@ -102,12 +102,17 @@ test('others', function (t) {
   t.end()
 })
 
-function testTypes (t, values) {
+function testTypes (t, values, options) {
+  options = options || {}
+
   Object.keys(values)
     .forEach(typeName => {
       testOfType(t, values, typeName)
       if (typeName === 'Any') return
       testNotOfType(t, values, typeName)
+      if (options.identity) {
+        testIdInProd(t, typeName)
+      }
     })
 }
 
@@ -151,4 +156,15 @@ function testNotOfType (t, values, typeName) {
       `ty.validate(ty[${typeName}], ${stringify(value)}) instanceof Error`
     )
   })
+}
+
+function testIdInProd (t, typeName) {
+  // TODO must run in new vm
+  /*
+  const value = Symbol()
+  const nodeEnv = process.env.NODE_ENV
+  process.env.NODE_ENV = 'production'
+  t.equal(value, ty[typeName](value), `${typeName} is identity function in production`)
+  process.env.NODE_ENV = nodeEnv
+  */
 }
