@@ -94,6 +94,10 @@ this allows the code to be stripped out with [`browserify`](http://browserify.or
 
 the built-in types and type utilities do this already, but if you are supplying your own types from scratch you will need to do this on your own.
 
+## examples
+
+i built this to replace [`tcomb`](https://github.com/gcanti/tcomb) within [`inu-plays-rougelike`](https://github.com/ahdinosaur/inu-plays-roguelike) due to performance problems (and fun ideas), the integration is still a work in progress.
+
 ## inspiration
 
 - [`tcomb`](https://github.com/gcanti/tcomb)
