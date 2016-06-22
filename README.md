@@ -8,6 +8,8 @@ simple type abstraction
 npm install --save mintype
 ```
 
+for a much more sophisticated type library that works well, see [`tcomb`](https://github.com/gcanti/tcomb).
+
 ## what?
 
 what's a type?
