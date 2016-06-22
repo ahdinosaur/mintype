@@ -4,8 +4,6 @@
 
 simple type abstraction
 
-**not useful yet, come back another time**
-
 ```shell
 npm install --save mintype
 ```
