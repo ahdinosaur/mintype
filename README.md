@@ -40,15 +40,16 @@ const ty = require('mintype')
 
 const Vector = ty.compose(
   ty.Array,
-  (vector) => {
-    const error = vector.reduce((sofar, next) => {
-      return sofar instanceof TypeError
-        ? sofar : ty.validate(ty.Number, next)
-    }, null)
-    return error === null ? vector : error
-  },
   (vector) => vector.length === 2
     ? vector : new TypeError('Vector must be array of [x, y].')
+  ,
+  (vector) => {
+    for (var i = 0; i < vector.length; i++) {
+      const result = ty.validate(ty.Number, vector[i])
+      if (result instanceof TypeError) return result
+    }
+    return vector
+  }
 )
 
 const Location = ty.struct('Location', {
