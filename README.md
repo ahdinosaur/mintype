@@ -2,13 +2,15 @@
 [![npm version][2]][3] [![build status][4]][5] [![test coverage][6]][7]
 [![downloads][8]][9] [![js-standard-style][10]][11]
 
-simple type abstraction
+minimal type abstraction
 
 ```shell
 npm install --save mintype
 ```
 
-for a much more sophisticated type library that works well, see [`tcomb`](https://github.com/gcanti/tcomb).
+for a better type library, see [`tcomb`](https://github.com/gcanti/tcomb).
+
+![mint tea](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/The_menthe.jpg/495px-The_menthe.jpg)
 
 ## what?
 
