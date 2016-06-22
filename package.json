@@ -1,6 +1,6 @@
 {
   "name": "mintype",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "minimal type abstraction",
   "main": "index.js",
   "scripts": {
