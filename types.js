@@ -8,19 +8,20 @@ const types = {
     typeOf('number'),
     (value) => value % 1 === 0
       ? value
-      : new Error(`expected ${value} % 1 === 0`)
+      : new TypeError(`expected ${value} % 1 === 0`)
   ),
   Boolean: typeOf('boolean'),
   Array: (value) => Array.isArray(value)
     ? value
-    : new Error(`expected Array.is(${value})`),
+    : new TypeError(`expected Array.is(${value})`),
   Object: typeOf('object'),
   Function: typeOf('function'),
   RegExp: instanceOf(RegExp),
   Date: instanceOf(Date),
+  Error: instanceOf(Error),
   Nil: (value) => value == null
     ? value
-    : new Error(`expected ${value} == null`),
+    : new TypeError(`expected ${value} == null`),
   Any: value => value
 }
 

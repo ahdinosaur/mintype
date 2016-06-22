@@ -17,7 +17,7 @@ function createStruct (name, propTypes) {
       const propType = propTypes[propName]
       const propValue = propType(prop)
 
-      if (propValue instanceof Error) {
+      if (propValue instanceof TypeError) {
         return propValue
       }
 

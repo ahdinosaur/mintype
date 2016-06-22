@@ -94,6 +94,9 @@ test('others', function (t) {
     Nil: [
       null,
       undefined
+    ],
+    Error: [
+      new Error('something went wrong.')
     ]
   }
 

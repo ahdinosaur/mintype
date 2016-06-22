@@ -4,11 +4,11 @@ function create (Type, value) {
   const nextValue = Type(value)
 
   if (process.env.NODE_ENV !== 'production') {
-    if (nextValue instanceof Error) {
-      throw Error
+    if (nextValue instanceof TypeError) {
+      throw TypeError
     }
   }
 
-  return nextValue instanceof Error
+  return nextValue instanceof TypeError
     ? value : nextValue
 }

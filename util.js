@@ -11,7 +11,7 @@ function typeOf (typeName) {
     return function (value) {
       return typeof value === typeName
         ? value
-        : new Error(`expected typeof ${stringify(value)} == ${typeName}`)
+        : new TypeError(`expected typeof ${stringify(value)} == ${typeName}`)
     }
   }
   return id
@@ -22,7 +22,7 @@ function instanceOf (Ctor) {
     return function (value) {
       return value instanceof Ctor
         ? value
-        : new Error(`expected ${stringify(value)} instanceof ${Ctor.name}`)
+        : new TypeError(`expected ${stringify(value)} instanceof ${Ctor.name}`)
     }
   }
   return id

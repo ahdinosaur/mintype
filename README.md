@@ -19,7 +19,7 @@ what's a type?
 given a value `v`, `T` returns either:
 
 - a new value `v*` (which might be `===` to `v`)
-- an instance of `Error`
+- an instance of `TypeError`
 
 and given `v*`, `T` returns `v*`.
 
@@ -27,8 +27,8 @@ we can use this in many interesting ways
 
 - create a factory `Function` that is _idempotent_, as in `F(value) === F(F(value))`
   - to do this, we throw errors in development, and ignore them in production.
-- create a validation `Function` that returns `Error` or `null` about `value` being type `T`
-- create a test `Function` that returns `Boolean` of whether `value` is type `T`
+- create a validation `Function` that returns `TypeError` or `null`
+- create a test `Function` that returns `Boolean`
 
 ## usage
 
@@ -49,7 +49,7 @@ you can also require each module separately like `require('mintype/create')`.
 
 if `value` is type `T`, return `null`;
 
-else return `Error` returned from `T(value)`.
+else return `TypeError` returned from `T(value)`.
 
 ### `ty.is(T, value)`
 
