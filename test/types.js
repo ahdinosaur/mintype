@@ -115,9 +115,14 @@ function testOfType (t, values, typeName) {
   const valuesOfType = values[typeName]
 
   valuesOfType.forEach((value) => {
+    const Type = ty[typeName]
     t.ok(
-      ty.is(ty[typeName], value),
+      ty.is(Type, value),
       `${stringify(value)} is a ${typeName}`
+    )
+    t.equal(
+      ty.validate(Type, value), null,
+      `ty.validate(ty[${typeName}], ${stringify(value)}) === null`
     )
   })
 }
@@ -130,9 +135,20 @@ function testNotOfType (t, values, typeName) {
     }, values.Any)
 
   valuesNotOfType.forEach((value) => {
+    const Type = ty[typeName]
     t.notOk(
-      ty.is(ty[typeName], value),
+      ty.is(Type, value),
       `${stringify(value)} is not a ${typeName}`
+    )
+    const error = Type(value)
+    t.ok(
+      error instanceof Error,
+      `ty[${typeName}](${stringify(value)}) instanceof Error`
+    )
+    const vError = ty.validate(Type, value)
+    t.equal(
+      vError.message, error.message,
+      `ty.validate(ty[${typeName}], ${stringify(value)}) instanceof Error`
     )
   })
 }
