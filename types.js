@@ -5,17 +5,16 @@ const types = {
   String: typeOf('string'),
   Number: typeOf('number'),
   Integer: compose(
-    typeOf('string'),
+    typeOf('number'),
     (value) => value % 1 === 0 ? value
       : new Error(`expected ${value} % 1 === 0`)
-      ),
+  ),
   Boolean: typeOf('boolean'),
-  Array: (value) => Array.is ? value
+  Array: (value) => Array.isArray(value) ? value
     : new Error(`expected Array.is(${value})`)
   ,
   Object: typeOf('object'),
   Function: typeOf('function'),
-  Error: instanceOf(Error),
   RegExp: instanceOf(RegExp),
   Date: instanceOf(Date),
   Nil: (value) => value == null ? value

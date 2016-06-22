@@ -53,6 +53,20 @@ if `value` is type `T`, return `true`;
 
 else return `false`.
 
+### built-in types
+
+- `ty.String`: strings
+- `ty.Number`: numbers
+- `ty.Integer`: integers
+- `ty.Boolean`: booleans
+- `ty.Array`: arrays
+- `ty.Object`: plain objects
+- `ty.Function`: functions
+- `ty.RegExp`: regular expressions
+- `ty.Date`: dates
+- `ty.Nil`: `null` or `undefined`
+- `ty.Any`: any value
+
 ## FAQ
 
 ### how to optimize types in production?

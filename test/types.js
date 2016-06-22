@@ -5,6 +5,9 @@ const { stringify } = require('../util')
 
 test('typeof', function (t) {
   const values = {
+    none: [
+      undefined
+    ],
     String: [
       '',
       'a',
@@ -37,29 +40,98 @@ test('typeof', function (t) {
       new Function(),
     ]
   }
-  Object.keys(values).forEach(typeName => {
-    const valuesOfType = values[typeName]
 
-    valuesOfType.forEach((value) => {
-      t.ok(
-        ty.is(ty[typeName], value),
-        `${stringify(value)} is a ${typeName}`
-      )
-    })
-
-    const valuesNotOfType = Object.keys(values)
-    .filter(name => name !== typeName)
-    .reduce((sofar, nextTypeName) => {
-      return sofar.concat(values[nextTypeName])
-    }, [])
-
-    valuesNotOfType.forEach((value) => {
-      t.notOk(
-        ty.is(ty[typeName], value),
-        `${stringify(value)} is not a ${typeName}`
-      )
-    })
-  })
+  testTypes(t, values)
 
   t.end()
 })
+
+test('instanceof', function (t) {
+  const values = {
+    none: [
+      'a',
+      0,
+      null,
+      undefined,
+      [],
+      {}
+    ],
+    Date: [
+      new Date(),
+      new Date(0),
+      new Date(Date.parse('January 1, 2000'))
+    ],
+    RegExp: [
+      /a/,
+      new RegExp('a')
+    ]
+  }
+
+  testTypes(t, values)
+
+  t.end()
+})
+
+test('others', function (t) {
+  const values = {
+    none: [
+      'a',
+      0.1,
+      {},
+      new Uint8Array()
+    ],
+    Integer: [
+      1,
+      Number(100),
+      -1,
+      Number(-100)
+    ],
+    Array: [
+      [],
+      new Array()
+    ],
+    Nil: [
+      null,
+      undefined
+    ]
+  }
+
+  testTypes(t, values)
+
+  t.end()
+})
+
+function testTypes (t, values) {
+  Object.keys(values)
+  .filter(name => name !== 'none')
+  .forEach(typeName => {
+    testOfType(t, values, typeName)
+    testNotOfType(t, values, typeName)
+  })
+}
+
+function testOfType (t, values, typeName) {
+  const valuesOfType = values[typeName]
+
+  valuesOfType.forEach((value) => {
+    t.ok(
+      ty.is(ty[typeName], value),
+      `${stringify(value)} is a ${typeName}`
+    )
+  })
+}
+
+function testNotOfType (t, values, typeName) {
+  const valuesNotOfType = Object.keys(values)
+  .filter(name => name !== typeName)
+  .reduce((sofar, nextTypeName) => {
+    return sofar.concat(values[nextTypeName])
+  }, values.none)
+
+  valuesNotOfType.forEach((value) => {
+    t.notOk(
+      ty.is(ty[typeName], value),
+      `${stringify(value)} is not a ${typeName}`
+    )
+  })
+}
