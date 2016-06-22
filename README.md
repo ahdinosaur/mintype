@@ -12,25 +12,18 @@ npm install --save mintype
 
 what's a type?
 
-a type is a named collection of rules
+**a Type `T` is a function** where
 
-**a Rule is a function**
+give a value `v`, returns either
 
-give a `value`, returns either
-
-- a new value
+- a new value `v*`
 - an instance of `Error`
-
-**a Type `T` is an object** of
-
-- `type`: `String` name for the type
-- `rules`: `Array` of rules
 
 we can use this in many interesting ways
 
 - create a factory `Function` that is _idempotent_, as in `F(value) === F(F(value))`
   - this can throw errors in development, but avoid expensive checks in production
-- create a validation `Function` that returns `Array` of `Error` about `value` being type `T`
+- create a validation `Function` that returns `Error` or `null` about `value` being type `T`
 - create a test `Function` that returns `Boolean` of whether `value` is type `T`
 
 ## usage
@@ -39,49 +32,36 @@ we can use this in many interesting ways
 
 the top-level `mintype` module is a grab bag of all `mintype/*` modules.
 
-you can also require each module separately like `require('mintype/push')`.
+you can also require each module separately like `require('mintype/create')`.
 
-### `F = ty.create(Type)`
+### `b = ty.create(T, a)`
 
-given a type definition, return a typed factory (which is also compatible as a definition).
+`create(T, value)` only returns the *typed* version of `value`, as in:
 
-`F(value)` returns the typed version of `value`, as in
+- if there is an error from applying the type `T`, then `create` will throw
+- otherwise `create` returns the resulting value from applying the type `T`
 
-- if there are errors from applying the rules, then `F` will throw
-- otherwise `F` returns the result of applying the rules
+### `ty.validate(T, value)`
 
-if `process.env.NODE_ENV === 'production'`, then `F` ignores any errors
+if `value` is type `T`, return `null`;
 
-`F` has the `type` and `rules` keys from `Type`, plus:
+else return `Error` returned from `T(value)`.
 
-- `F.is(value)`: returns `Boolean` of whether `value` is type `T`
-- `F.validate(value)`: that returns `Array` of `Error` about `value` being type `T`
+### `ty.is(T, value)`
 
-### built-in types
+if `value` is type `T`, return `true`;
 
-- `ty.String`: strings
-- `ty.Number`: numbers
-- `ty.Integer`: integers
-- `ty.Boolean`: booleans
-- `ty.Array`: arrays
-- `ty.Object`: plain objects
-- `ty.Function`: functions
-- `ty.Error`: errors
-- `ty.RegExp`: regular expressions
-- `ty.Date`: dates
-- `ty.Nil`: `null` or `undefined`
-- `ty.Any`: any value
-- `ty.Type`: a `tcomb` type
+else return `false`.
 
-### `ty.validate(type, value)`
+## FAQ
 
-reduce rules over value.
+### how to optimize types in production?
 
-return errors as an array (empty if none)
+for more performant types in production, only check for errors if `process.env.NODE_ENV !== 'production'`.
 
-### `ty.isType(type, value)`
+this allows the code to be stripped out with `browserify` bundles using `envify` and `uglifyify`.
 
-### `ty.assert(type, value)`
+the built-in types and type utilities do this already, but if you are supplying your own types from scratch you will need to do this on your own.
 
 ## inspiration
 

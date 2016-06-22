@@ -1,24 +1,14 @@
-const validate = require('./validate')
-const isType = require('./isType')
-const assert = require('./assert')
-
 module.exports = create
 
-function create (prevType) {
-  Type.type = prevType.type
-  Type.rules = prevType.rules
+function create (Type, value) {
+  const nextValue = Type(value)
 
-  Type.validate = (value) => {
-    return validate(Type, value)
-  }
-  Type.is = (value) => {
-    return isType(Type, value)
+  if (process.env.NODE_ENV !== 'production') {
+    if (nextValue instanceof Error) {
+      throw new Error
+    }
   }
 
-  return Type
-  
-  function Type (value) {
-    assert(Type, value)
-    return value
-  }
+  return nextValue instanceof Error
+    ? value : nextValue
 }

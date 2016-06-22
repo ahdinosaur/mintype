@@ -18,6 +18,9 @@
     "url": "https://github.com/ahdinosaur/mintype/issues"
   },
   "homepage": "https://github.com/ahdinosaur/mintype#readme",
+  "engines": {
+    "node": "^6.0.0"
+  },
   "devDependencies": {
     "npm-run-all": "^1.6.0",
     "tape": "^4.5.1"

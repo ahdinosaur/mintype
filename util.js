@@ -1,31 +1,45 @@
 module.exports = {
   typeOf,
   instanceOf,
-  union
+  union,
+  id,
+  stringify
 }
 
-function typeOf (type) {
-  return [
-    function (value) {
-      return typeof value === type
+function typeOf (typeName) {
+  if (process.env.NODE_ENV !== 'production') {
+    return function (value) {
+      return typeof value === typeName
         ? value
-        : new Error(`expected typeof ${value} == ${type}`)
+        : new Error(`expected typeof ${stringify(value)} == ${typeName}`)
     }
-  ]
+  }
+  return id
 }
 
-function instanceOf (type) {
-  return [
-    function (value) {
-      return value instanceof type
+function instanceOf (Ctor) {
+  if (process.env.NODE_ENV !== 'production') {
+    return function (value) {
+      return value instanceof Ctor
         ? value
-        : new Error(`expected ${value} instanceof ${type}`)
+        : new Error(`expected ${stringify(value)} instanceof ${Ctor.name}`)
     }
-  ]
+  }
+  return id
 }
 
 function union (types) {
   return function (value) {
     return types[value.type](value)
   }
+}
+
+function id (x) { return x }
+
+function stringify (value) {
+  return value != null
+    ? value.toString
+      ? value.toString()
+      : JSON.stringify(value)
+    : String(value)
 }

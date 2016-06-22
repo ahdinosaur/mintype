@@ -1,10 +1,9 @@
 module.exports = Object.assign(
   {
-    assert: require('./assert'),
     validate: require('./validate'),
+    is: require('./is'),
     create: require('./create'),
-    rules: require('./rules')
+    compose: require('./compose')
   },
-  require('./types'),
-  require('./util')
+  require('./types')
 )
