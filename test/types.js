@@ -132,6 +132,13 @@ function testOfType (t, values, typeName) {
       ty.validate(Type, value), null,
       `ty.validate(ty[${typeName}], ${stringify(value)}) === null`
     )
+    // skip NaN in create test
+    if (typeof value === 'number' && isNaN(value)) return
+    t.equal(
+      value,
+      ty.create(Type, value),
+      `value === ty.create(ty[${typeName}], value)`
+    )
   })
 }
 
@@ -150,13 +157,24 @@ function testNotOfType (t, values, typeName) {
     )
     const error = Type(value)
     t.ok(
-      error instanceof Error,
-      `ty[${typeName}](${stringify(value)}) instanceof Error`
+      error instanceof TypeError,
+      `ty[${typeName}](${stringify(value)}) instanceof TypeError`
     )
     const vError = ty.validate(Type, value)
     t.equal(
       vError.message, error.message,
-      `ty.validate(ty[${typeName}], ${stringify(value)}) instanceof Error`
+      `ty.validate(ty[${typeName}], ${stringify(value)})`
+    )
+    t.throws(
+      () => {
+        try {
+          ty.create(Type, value)
+        } catch (err) {
+          if (err instanceof TypeError) throw err
+        }
+      },
+      /^TypeError/,
+      `ty.create(ty[${typeName}], ${stringify(value)}) throws TypeError`
     )
   })
 }

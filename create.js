@@ -5,7 +5,7 @@ function create (Type, value) {
 
   if (process.env.NODE_ENV !== 'production') {
     if (nextValue instanceof TypeError) {
-      throw TypeError
+      throw nextValue
     }
   }
 
