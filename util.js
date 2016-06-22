@@ -1,7 +1,7 @@
 module.exports = {
   typeOf,
   instanceOf,
-  union,
+//  union,
   id,
   stringify
 }
@@ -28,11 +28,13 @@ function instanceOf (Ctor) {
   return id
 }
 
+/*
 function union (types) {
   return function (value) {
     return types[value.type](value)
   }
 }
+*/
 
 function id (x) { return x }
 
