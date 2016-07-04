@@ -33,9 +33,7 @@ function createStruct (name, propTypes) {
 
     for (var propName in props) {
       const prop = props[propName]
-      const propType = propTypes[propName]
-
-      this[propName] = propType(prop)
+      this[propName] = prop
     }
   }
 }
