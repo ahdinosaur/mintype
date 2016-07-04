@@ -13,6 +13,7 @@ function createStruct (name, propTypes) {
     var value = {}
 
     for (var propName in propTypes) {
+      if (propName === 'type') continue
       const prop = props[propName]
       const propType = propTypes[propName]
       const propValue = propType(prop)
