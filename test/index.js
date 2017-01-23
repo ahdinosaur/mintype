@@ -6,6 +6,3 @@ test('mintype', function (t) {
   t.ok(ty, 'module is require-able')
   t.end()
 })
-
-require('./types')
-require('./struct')

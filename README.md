@@ -138,6 +138,11 @@ const Integer = compose(
 )
 ```
 
+### `ty.maybe(Type)`
+
+returns a type that can either be of type `ty.Nil` or the type passed to `ty.maybe`
+
+
 ## FAQ
 
 ### how to optimize types in production?

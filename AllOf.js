@@ -1,6 +1,6 @@
-module.exports = compose
+module.exports = AllOf
 
-function compose (...Types) {
+function AllOf (Types) {
   return (value) => {
     return Types.reduce((sofar, Type) => {
       return sofar instanceof TypeError

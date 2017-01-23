@@ -4,10 +4,10 @@
   "description": "minimal type abstraction",
   "main": "index.js",
   "scripts": {
-    "test:deps": "dependency-check . && dependency-check . --extra --no-dev",
+    "test:deps": "dependency-check . ",
     "test:lint": "standard",
-    "test:node": "NODE_ENV=test tape test",
-    "test:coverage": "NODE_ENV=test istanbul cover test/index.js",
+    "test:node": "NODE_ENV=test tape test/*.js",
+    "test:coverage": "NODE_ENV=test istanbul cover tape test/*.js",
     "test": "npm-run-all -s test:deps test:lint test:node"
   },
   "browserify": {

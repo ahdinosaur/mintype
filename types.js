@@ -1,15 +1,15 @@
-const compose = require('./compose')
+const AllOf = require('./AllOf')
 const { typeOf, instanceOf } = require('./util')
 
 const types = {
   String: typeOf('string'),
   Number: typeOf('number'),
-  Integer: compose(
+  Integer: AllOf([
     typeOf('number'),
     (value) => value % 1 === 0
       ? value
       : new TypeError(`expected ${value} % 1 === 0`)
-  ),
+  ]),
   Boolean: typeOf('boolean'),
   Array: (value) => Array.isArray(value)
     ? value

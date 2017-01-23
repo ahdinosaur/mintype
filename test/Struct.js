@@ -2,8 +2,8 @@ const test = require('tape')
 
 const ty = require('../')
 
-test('struct', function (t) {
-  const Thing = ty.struct('Thing', {
+test('Struct', function (t) {
+  const Thing = ty.Struct('Thing', {
     name: ty.String,
     excitement: ty.Number
   })
@@ -43,7 +43,7 @@ test('struct', function (t) {
   )
 
   const nextThing = Thing(thing)
-  t.equal(nextThing, thing, 'struct is idempotent')
+  t.equal(nextThing, thing, 'Struct is idempotent')
 
   const error = Thing({
     name: 'desk'
