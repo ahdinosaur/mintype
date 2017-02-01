@@ -1,8 +1,8 @@
-var test = require('tape')
+const test = require('tape')
 
-var types = require('../types')
-var is = require('../is')
-var Not = require('../Not')
+const types = require('../../types')
+const is = require('../../is')
+const Not = require('../../types/Not')
 
 test('Not is a function', function (t) {
   t.equal(typeof Not, 'function')
@@ -10,7 +10,7 @@ test('Not is a function', function (t) {
 })
 
 test('Not works with two elems in array ', function (t) {
-  var T = Not([
+  const T = Not([
     types.String,
     types.Number
   ])

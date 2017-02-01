@@ -1,7 +1,7 @@
 const test = require('tape')
 
-const ty = require('../')
-const { stringify } = require('../util')
+const ty = require('../../')
+const stringify = require('../../util/stringify')
 
 test('typeof', function (t) {
   const values = {

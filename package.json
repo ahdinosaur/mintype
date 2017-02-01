@@ -6,27 +6,15 @@
   "scripts": {
     "test:deps": "dependency-check . ",
     "test:lint": "standard",
-    "test:node": "NODE_ENV=test tape test/*.js",
-    "test:coverage": "NODE_ENV=test istanbul cover tape test/*.js",
-    "test": "npm-run-all -s test:deps test:lint test:node"
+    "test:node": "NODE_ENV=test tape test/**/*.js",
+    "test:coverage": "NODE_ENV=test nyc npm run test:node",
+    "test:coverage:report": "nyc report --reporter=lcov npm run test:node",
+    "test": "npm-run-all -s test:node test:lint test:deps"
   },
   "browserify": {
     "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2020"
-          ],
-          "plugins": [
-            "transform-es2015-destructuring",
-            "transform-es2015-literals",
-            "transform-es2015-parameters",
-            "transform-es2015-shorthand-properties",
-            "transform-es2015-spread"
-          ]
-        }
-      ]
+      "bulkify",
+      "es2040"
     ]
   },
   "repository": {
@@ -44,19 +32,16 @@
     "node": "^6.0.0"
   },
   "devDependencies": {
-    "dependency-check": "^2.5.1",
-    "istanbul": "^0.4.4",
-    "npm-run-all": "^1.6.0",
-    "standard": "^7.1.2",
-    "tape": "^4.5.1"
+    "dependency-check": "^2.8.0",
+    "npm-run-all": "^4.0.1",
+    "nyc": "^10.1.2",
+    "standard": "^8.6.0",
+    "tape": "^4.6.3"
   },
   "dependencies": {
-    "babel-plugin-transform-es2015-destructuring": "^6.9.0",
-    "babel-plugin-transform-es2015-literals": "^6.8.0",
-    "babel-plugin-transform-es2015-parameters": "^6.9.0",
-    "babel-plugin-transform-es2015-shorthand-properties": "^6.8.0",
-    "babel-plugin-transform-es2015-spread": "^6.8.0",
-    "babel-preset-es2020": "^1.0.2",
-    "babelify": "^7.3.0"
+    "bulk-require": "^1.0.0",
+    "bulkify": "^1.4.2",
+    "es2040": "^1.2.4",
+    "object-assign": "^4.1.1"
   }
 }

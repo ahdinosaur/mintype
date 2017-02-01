@@ -1,8 +1,8 @@
-var test = require('tape')
+const test = require('tape')
 
-var types = require('../types')
-var is = require('../is')
-var OneOf = require('../OneOf')
+const types = require('../../types')
+const is = require('../../is')
+const OneOf = require('../../types/OneOf')
 
 test('OneOf is a function', function (t) {
   t.equal(typeof OneOf, 'function')
@@ -10,7 +10,7 @@ test('OneOf is a function', function (t) {
 })
 
 test('OneOf works with two elems in array ', function (t) {
-  var T = OneOf([
+  const T = OneOf([
     types.String,
     value => value === '1' ? value : new TypeError('nope')
   ])

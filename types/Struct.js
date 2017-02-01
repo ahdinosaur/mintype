@@ -12,7 +12,7 @@ function createStruct (name, propTypes) {
 
     var value = {}
 
-    for (var propName in propTypes) {
+    for (const propName in propTypes) {
       if (propName === 'type') continue
       const prop = props[propName]
       const propType = propTypes[propName]
@@ -31,7 +31,7 @@ function createStruct (name, propTypes) {
   function CStruct (props) {
     this.type = name
 
-    for (var propName in props) {
+    for (const propName in props) {
       const prop = props[propName]
       this[propName] = prop
     }

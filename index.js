@@ -1,15 +1,10 @@
-module.exports = Object.assign(
+const assign = require('object-assign')
+
+module.exports = assign(
   {
     create: require('./create'),
     validate: require('./validate'),
-    is: require('./is'),
-    Struct: require('./Struct'),
-    Maybe: require('./Maybe'),
-    AnyOf: require('./AnyOf'),
-    AllOf: require('./AllOf'),
-    OneOf: require('./OneOf'),
-    Not: require('./Not'),
-    Dict: require('./Dict')
+    is: require('./is')
   },
   require('./types')
 )

@@ -1,6 +1,6 @@
 const test = require('tape')
 
-const ty = require('../')
+const ty = require('../../')
 
 const maybe = ty.Maybe
 
